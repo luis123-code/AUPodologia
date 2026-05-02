@@ -26,7 +26,7 @@ export default async function handler(req, res) {
                 break;
             case "PATCH":
                 console.log("entro al PATCH")
-                if (cita.estadoCalendario === "actualizar") {
+                if (cita.estadoCalendario === "actualizar" || cita.estadoCalendario === "reseteado") {
                     return await handleUpdate(cita, res);
                 }
                 break;
