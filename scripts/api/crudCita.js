@@ -14,19 +14,6 @@ export default async function handler(req, res) {
         const cita = rows[0];
         console.log("cita recibida:", cita);
 
-        // Evitar bucle infinito: ignorar si solo se actualizó el token
-        const previousValues = req.body?.data?.previousValues;
-        if (previousValues) {
-            const camposActualizados = Object.keys(cita).filter(key => {
-                return cita[key] !== previousValues[key];
-            });
-            const soloTokenActualizado = camposActualizados.length === 1 && camposActualizados[0] === 'tokenCalendario';
-            if (soloTokenActualizado) {
-                console.log("Ignorando webhook: solo se actualizó el token");
-                return res.status(200).json({ ok: true, skipped: true });
-            }
-        }
-
         if (!cita.pacientes?.Id) {
             return res.status(400).json({ error: 'Sin paciente vinculado' });
         }
