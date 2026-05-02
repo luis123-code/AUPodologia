@@ -20,15 +20,24 @@ export default async function handler(req, res) {
 
         switch (req.method) {
             case "POST":
-                console.log("entro al post")
-                return await handleInsert(cita, res);
-            // case "PATCH":
-            //     console.log("entro al PATCH")
-            //     return await handleUpdate(cita, res);
-            // case "DELETE":
-            //     return await handleDelete(cita, res);
+                if (cita.estadoCalendario === "actualizar") {
+                    return await handleInsert(cita, res);
+                }
+                break;
+            case "PATCH":
+                console.log("entro al PATCH")
+                if (cita.estadoCalendario === "actualizar") {
+                    return await handleUpdate(cita, res);
+                }
+                break;
+            case "DELETE":
+                console.log("entro al delete")
+                if (cita.estadoCalendario === "eliminar") {
+                    return await handleDelete(cita, res);
+                }
+                break;
             default:
-            return res.status(405).json({ error: `Método '${req.method}' no permitido` });
+                return res.status(405).json({ error: `Método '${req.method}' no permitido` });
         }
 
     } catch (error) {
