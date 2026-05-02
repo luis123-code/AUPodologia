@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
         switch (req.method) {
             case "POST":
-                if (cita.estadoCalendario === "actualizar") {
+                if (cita.estadoCalendario === "registrado") {
                     return await handleInsert(cita, res);
                 }
                 break;
