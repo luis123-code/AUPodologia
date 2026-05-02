@@ -24,10 +24,8 @@ export default async function handler(req, res) {
                 return await handleInsert(cita, res);
             case "PATCH":
                 console.log("entro al PATCH")
-                if (cita.estadoCalendario === "actualizar") {
-                    return await handleUpdate(cita, res);
-
-                }
+                return await handleUpdate(cita, res);
+            case "DELETE":
                 return await handleDelete(cita, res);
             default:
                 return res.status(405).json({ error: `Método '${req.method}' no permitido` });
